@@ -55,7 +55,7 @@ const RestCountries = () => {
   }, [debouncedSearch, query, filter.selected]);
 
   return (
-    <div>
+    <div >
       <NavBar />
       {selectedCountry === null ? (
         <div className="w-[90%] m-auto">
