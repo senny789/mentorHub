@@ -46,8 +46,8 @@ const PlayingScreen=({selected,setScore,setSelected,sennySign,status}:{status:st
         <Sign type={selected}/>
       </section>
       <section className='flex flex-col gap-10 justify-center items-center p-5'>
-        <h1 className='text-3xl text-white font-bold'>You {status}</h1>
-        <button className='bg-white rounded-xl py-2 px-8  text-black' onClick={()=>setSelected('')}>Play Again</button>
+        <h1 className='text-4xl text-white font-bold'>You {status}</h1>
+        <button className={`bg-slate-200 rounded-xl text-xl py-2 px-16  font-bold ${status==='Won'?'text-green-400':'text-red-400'}`} onClick={()=>setSelected('')}>Play Again</button>
       </section>
       <section className='flex flex-col gap-10 items-center'>
         <h1 className='text-3xl text-white font-bold'>Senny Picked</h1>
