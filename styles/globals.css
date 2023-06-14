@@ -35,3 +35,58 @@ body {
 
   color:white;
 }
+
+.title{
+color:#ffffffec;
+  top: 2%;
+  width: 100%;
+padding: 0.4rem;
+
+
+  border-radius: 15px;
+  z-index: 10;
+  transform-style: preserve-3D;
+ 
+}
+
+.title::after,.title::before{
+  content: " ";
+  position: absolute;
+opacity: 1;
+  z-index: -1;
+  border-radius: inherit;
+  width: 100%;
+
+ transform: translateZ(-1px); 
+
+
+  background: conic-gradient(from var(--gradient-angle), rgba(223, 28, 207, 0.538) , rgba(188, 49, 49, 0.352) ,  rgba(0,212,255,1)  ,rgba(223,28,206,1),rgba(188,49,49,1));
+  animation:5s animateTitle   infinite linear;
+}
+.title::before{
+  filter: blur(2.5rem);
+  inset: .5rem;
+}
+.title::after{
+  inset: 2rem;
+  filter: blur(10rem);
+}
+
+
+@property --gradient-angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes animateTitle{
+0%{
+  --gradient-angle: 0deg;
+  /* opacity: 0; */
+}
+
+100%{
+  --gradient-angle:360deg;
+}
+}
+/* leaflet */

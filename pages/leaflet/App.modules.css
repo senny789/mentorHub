@@ -1,0 +1,65 @@
+.data > *:not(:last-child) {
+  border-right: 1px solid gray;
+}
+.data {
+  width: 90vw;
+  flex-wrap: wrap;
+  right: 2%;
+  left: 2%;
+}
+.data > * {
+  padding-inline: 1rem;
+  font-weight: bold;
+  flex: 1;
+}
+
+.data > * > h2 {
+  color: gray;
+}
+.data > * h1 {
+  font-size: 2rem;
+}
+.leaflet-container {
+  width: 100vw;
+  height: 70vh;
+  z-index: 1;
+}
+.arrow:hover {
+  background-color: #5b888946;
+  opacity: 0.7;
+  box-shadow: #5b888946 10px 20px 10px 20px;
+}
+@media (max-width: 1000px) {
+  .data {
+    bottom: -30%;
+    left: -2%;
+    padding: 2rem;
+  }
+  .data > * h1 {
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+}
+@media (orientation: portrait) {
+  /* … */
+  .data {
+    width: 80%;
+    flex-direction: column;
+    top: 60%;
+    left: 5%;
+  }
+  .data > *:not(:last-child) {
+    border-right: none;
+  }
+}
+@media (max-width: 40rem) and (orientation: portrait) {
+  .data {
+    bottom: -30%;
+    left: -5%;
+    padding: 2rem;
+  }
+  .data > * h1 {
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+}
