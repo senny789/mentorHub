@@ -1,36 +1,36 @@
 import React from "react";
 
 const Country = (props: any) => {
-  const data = props.data;
-  return (
-    <div
-      onClick={() => {
-        props.setSelectedCountry(data);
-      }}
-      className="flex flex-col hover:opacity-[0.5] cursor-pointer bg-white shadow-[0px_7px_29px_0px_rgba(100,100,111,0.2)] rounded-md"
-    >
-      <img
-        className="aspect-video rounded-md"
-        src={data.flags?.png}
-        alt={data.flags?.alt}
-      ></img>
-      <div className="px-5 py-8">
-        <h1 className="font-bold text-xl">{data.name.common}</h1>
-        <span className="flex py-2">
-          <h2 className="font-bold">Population:</h2>
-          {data.population}
-        </span>
-        <span className="flex py-2">
-          <h2 className="font-bold">Region:</h2>
-          {data.region}
-        </span>
-        <span className="flex py-2">
-          <h2 className="font-bold">Capital:</h2>
-          {data?.capital}
-        </span>
-      </div>
-    </div>
-  );
+	const data = props?.data;
+	return (
+		<div
+			onClick={() => {
+				props.setSelectedCountry(data);
+			}}
+			className="flex flex-col hover:opacity-[0.5] cursor-pointer bg-white shadow-[0px_7px_29px_0px_rgba(100,100,111,0.2)] rounded-md"
+		>
+			<img
+				className="aspect-video rounded-md"
+				src={data?.flags?.png}
+				alt={data?.flags?.alt}
+			></img>
+			<div className="px-5 py-8">
+				<h1 className="font-bold text-xl">{data?.name.common}</h1>
+				<span className="flex py-2">
+					<h2 className="font-bold">Population:</h2>
+					{data?.population}
+				</span>
+				<span className="flex py-2">
+					<h2 className="font-bold">Region:</h2>
+					{data?.region}
+				</span>
+				<span className="flex py-2">
+					<h2 className="font-bold">Capital:</h2>
+					{data?.capital}
+				</span>
+			</div>
+		</div>
+	);
 };
 
 export default Country;
