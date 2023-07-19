@@ -3,12 +3,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { TileLayer, useMap, Marker, Popup } from "react-leaflet";
 
-import InfoCard from "./components/InfoCard";
+import InfoCard from "../../components/components/InfoCard";
 
 import dynamic from "next/dynamic";
-const MapContainer = dynamic(import("./components/MapContainer"), {
-	ssr: false,
-});
+const MapContainer = dynamic(
+	import("../../components/components/MapContainer"),
+	{
+		ssr: false,
+	}
+);
 
 function App() {
 	const [search, setSearch] = useState("");

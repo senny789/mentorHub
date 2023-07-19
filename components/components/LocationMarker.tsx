@@ -1,14 +1,14 @@
 import { icon } from "leaflet";
 import dynamic from "next/dynamic";
 import React, { Suspense, useEffect, useState } from "react";
-import { Popup, useMap } from "react-leaflet";
-import { Marker } from "react-leaflet";
-// export const LazyMarker = dynamic(
-// 	import("react-leaflet").then((mod) => mod.Marker),
-// 	{
-// 		ssr: false,
-// 	}
-// );
+import { useMap } from "react-leaflet";
+// import { Marker } from "react-leaflet";
+export const LazyMarker = dynamic(
+	import("react-leaflet").then((mod) => mod.Marker),
+	{
+		ssr: false,
+	}
+);
 // export const Center = dynamic(() => import("./MapCenter"), {
 // 	ssr: false,
 // });
@@ -42,11 +42,11 @@ export default function LocationMarker({ lat, lon, setData }: any) {
 	}, []);
 
 	return position === null ? null : typeof window !== "undefined" ? (
-		<Marker position={init ? [lat, lon] : position}>
-			<Popup>
-				A pretty CSS3 popup. <br /> Easily customizable.
-			</Popup>
-		</Marker>
+		<LazyMarker position={init ? [lat, lon] : position}>
+			<LazyPopup>
+				A pretty CSS3 LazyPopup. <br /> Easily customizable.
+			</LazyPopup>
+		</LazyMarker>
 	) : (
 		<></>
 	);
