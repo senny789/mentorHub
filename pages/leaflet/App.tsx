@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TileLayer, useMap, Marker, Popup } from "react-leaflet";
 
 import InfoCard from "./components/InfoCard";
-import L from "leaflet";
+
 import dynamic from "next/dynamic";
 const MapContainer = dynamic(import("./components/MapContainer"), {
 	ssr: false,
@@ -25,6 +25,7 @@ function App() {
 	const ref = useRef<any>(null);
 
 	//location fetch
+
 	useEffect(() => {
 		if (search !== "") {
 			let timeout = setTimeout(() => {
@@ -82,9 +83,7 @@ function App() {
 				>
 					<div className="absolute text-3xl cursor-default top-1/2">&lt;</div>
 				</div>
-				<h1 className="text-6xl text-white font-bold text-center">
-					Geo Location
-				</h1>
+				<h1 className="text-6xl text-white font-bold text-center">Leaflet</h1>
 
 				<form
 					ref={ref}

@@ -14,7 +14,7 @@ const InfoCard = ({ data }: any) => {
 			const localTime = date.getTime();
 			const localOffset = date.getTimezoneOffset() * 60000;
 			const utc = localTime + localOffset;
-			console.log(utc, timezoneOffset);
+
 			const newTime = utc + 3600000 * timezoneOffset;
 			const newTimeNow = new Date(newTime).toLocaleString();
 			setCurrentTime(newTimeNow);

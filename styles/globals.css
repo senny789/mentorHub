@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "leaflet/dist/leaflet.css";
 @font-face {
   font-family:'Barlow Semi Condensed';
   src: url(https://fonts.google.com/specimen/Barlow+Semi+Condensed);
@@ -63,14 +65,14 @@ opacity: 1;
   background: conic-gradient(from var(--gradient-angle), rgba(223, 28, 207, 0.538) , rgba(188, 49, 49, 0.352) ,  rgba(0,212,255,1)  ,rgba(223,28,206,1),rgba(188,49,49,1));
   animation:5s animateTitle   infinite linear;
 }
-.title::before{
+/* .title::before{
   filter: blur(2.5rem);
   inset: .5rem;
 }
 .title::after{
   inset: 2rem;
   filter: blur(10rem);
-}
+} */
 
 
 @property --gradient-angle{

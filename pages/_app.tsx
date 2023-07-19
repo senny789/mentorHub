@@ -1,7 +1,6 @@
 import MainLayout from "@/Layout/mainLayout";
 import "@/styles/globals.css";
 import "@/styles/leaflet.css";
-import "leaflet/dist/leaflet.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AnimatePresence } from "framer-motion";

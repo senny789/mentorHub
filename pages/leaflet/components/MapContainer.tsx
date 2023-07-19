@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 
 import dynamic from "next/dynamic";
 const LazyMapContainer = dynamic(
