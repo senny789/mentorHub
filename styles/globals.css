@@ -11,6 +11,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --table-border:1px solid rgb(204, 200, 200);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -92,3 +93,15 @@ opacity: 1;
 }
 }
 /* leaflet */
+
+
+.multi-step-form>table>thead>tr
+{
+  border-bottom: var(--table-border);
+}
+.multi-step-form>table>thead >tr:first-child>th:not(:last-child){
+  border-right:var(--table-border);
+}
+.multi-step-form>table>thead>tr+*>th{
+  border-right:var(--table-border);
+}

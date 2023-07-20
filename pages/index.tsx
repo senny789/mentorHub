@@ -13,6 +13,8 @@ import Rps from "@/assets/images/rps.png";
 import Rest from "@/assets/rest-countries.png";
 import { useRouter } from "next/router";
 import { AiOutlineArrowUp } from "react-icons/ai";
+import { selectDemo, toggleDemoPage } from "@/store/features/homeReducers";
+import { useDispatch, useSelector } from "react-redux";
 const Bubble = ({ img }: any) => {
 	return (
 		<motion.div
@@ -138,6 +140,8 @@ const DemoSection = ({
 	);
 };
 const index = () => {
+	const demoState = useSelector(selectDemo);
+	const dispatch = useDispatch();
 	const [explore, setExplore] = useState(false);
 	const [demo, setDemo] = useState(false);
 	const [bgColor, setBgColor] = useState("");
@@ -152,7 +156,7 @@ const index = () => {
 	// 	damping: 30,
 	// 	restDelta: 0.001,
 	// });
-	if (demo) {
+	if (demoState) {
 		return (
 			<motion.div
 				initial={{
@@ -407,7 +411,8 @@ const index = () => {
 								<motion.span
 									onClick={(e) => {
 										e.stopPropagation();
-										setDemo(true);
+										// setDemo(true);
+										dispatch(toggleDemoPage());
 									}}
 									initial={{
 										bottom: "-20%",
