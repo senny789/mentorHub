@@ -12,7 +12,7 @@ const Addon = ({ period, addon, setAddon }: AddonProps) => {
 	};
 	return (
 		<div id="addon" className="flex flex-col gap-6">
-			<h1 className="text-4xl font-bold">Pick add-ons</h1>
+			<h1 className="text-3xl font-bold">Pick add-ons</h1>
 			<h2 className=" font-medium text-slate-400">
 				Add-ons help enhance your gaming experience.
 			</h2>

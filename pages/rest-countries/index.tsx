@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import NavBar from "./components/NavBar";
+import NavBar from "../../components/countries/NavBar";
 import { AiOutlineArrowLeft, AiOutlineSearch } from "react-icons/ai";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import Country from "./components/Country";
+import Country from "../../components/countries/Country";
 import { useQuery } from "react-query";
+import { motion } from "framer-motion";
 const RestCountries = () => {
 	const [search, setSearch] = useState("");
 	const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -81,7 +82,15 @@ const RestCountries = () => {
 			}
 		};
 	}, [bottomRef]);
-
+	const container = {
+		hidden: { opacity: 0 },
+		show: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.5,
+			},
+		},
+	};
 	return (
 		<div>
 			<NavBar />
@@ -138,7 +147,12 @@ const RestCountries = () => {
 							)}
 						</span>
 					</section>
-					<section className="grid grid-cols-[repeat(4,1fr)] gap-x-10 gap-y-20 ">
+					<motion.section
+						variants={container}
+						initial="hidden"
+						animate="show"
+						className="grid grid-cols-[repeat(4,1fr)] gap-x-10 gap-y-20 "
+					>
 						{query?.data?.length > 0 &&
 							filteredQueries
 								?.slice(0, renderSize)
@@ -151,7 +165,7 @@ const RestCountries = () => {
 										/>
 									);
 								})}
-					</section>
+					</motion.section>
 				</div>
 			) : (
 				<div className="w-[90%] m-auto">
@@ -162,9 +176,20 @@ const RestCountries = () => {
 						<AiOutlineArrowLeft />
 						Back
 					</button>
-					<div className="mt-16 flex w-full gap-20">
+					<motion.div
+						initial={{
+							x: 100,
+							opacity: 0.5,
+						}}
+						animate={{
+							x: 0,
+							opacity: 1,
+						}}
+						transition={{ duration: 0.25 }}
+						className="mt-16 flex w-full gap-20"
+					>
 						<img
-							className="aspect-video w-[50%] flex-shrink-0"
+							className="aspect-video w-[50%] flex-shrink-0 shadow-xl"
 							src={selectedCountry.flags.svg}
 							alt={selectedCountry.flags.alt}
 						/>
@@ -233,7 +258,7 @@ const RestCountries = () => {
 									: "No country borders this nation"}
 							</span>
 						</section>
-					</div>
+					</motion.div>
 				</div>
 			)}
 			<div

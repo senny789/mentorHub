@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { selectDemo, toggleDemoPage } from "@/store/features/homeReducers";
 import { useDispatch, useSelector } from "react-redux";
+import { useIsLarge, useIsSmall } from "@/hooks/useMatchMedia";
 const Bubble = ({ img }: any) => {
 	return (
 		<motion.div
@@ -36,14 +37,25 @@ const Bubble = ({ img }: any) => {
 		></motion.div>
 	);
 };
-const BgCard = ({ imgsrc, style, initial, animate, transition }: any) => {
+const BgCard = ({
+	imgsrc,
+	style,
+	initial,
+	animate,
+	transition,
+	variants,
+	route,
+}: any) => {
+	const router = useRouter();
 	return (
 		<motion.span
 			initial={initial}
 			animate={animate}
+			variants={variants}
 			transition={transition}
+			onClick={() => router.push(route)}
 			className={
-				"aspect-video rounded-2xl h-[350px] w-[650px] shadow-[0px_1px_20px_0px_gray] overflow-hidden  absolute " +
+				"aspect-video rounded-2xl h-[350px] w-[650px] shadow-[0px_1px_20px_0px_gray] overflow-hidden  absolute hover:blur-0 cursor-pointer  blur-[2px]" +
 				style
 			}
 		>
@@ -59,17 +71,13 @@ const BgCard = ({ imgsrc, style, initial, animate, transition }: any) => {
 					duration: 3,
 					ease: "linear",
 				}}
-				className="bg-slate-200 z-10 rounded-2xl absolute -inset-1 hover:opacity-0  blur-[2px] "
+				className="bg-slate-200 z-10 rounded-2xl absolute -inset-1 hover:opacity-0   "
 				style={{
 					transition: "0.75s all ",
 					transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
 				}}
 			></motion.div>
-			<img
-				src={imgsrc}
-				alt={"photo"}
-				className=" h-full w-full blur-[2px]"
-			></img>
+			<img src={imgsrc} alt={"photo"} className=" h-full w-full "></img>
 		</motion.span>
 	);
 };
@@ -78,6 +86,7 @@ const DemoSection = ({
 	content,
 	img,
 	color,
+	id,
 	setBgColor,
 	route,
 }: any) => {
@@ -92,21 +101,22 @@ const DemoSection = ({
 	return (
 		<motion.span
 			ref={ref}
-			className="flex h-screen w-screen snap-center mt-10 items-center cursor-pointer "
+			id={id}
+			className="flex flex-col lg:flex-row h-screen w-screen snap-center mt-10 p-10 gap-10 justify-center items-center cursor-pointer "
 			onClick={() => router.push(route)}
 		>
 			<motion.span
 				initial={{
-					x: -700,
+					x: -200,
 				}}
 				whileInView={{
-					x: -100,
+					x: 0,
 					transition: {
-						duration: 1,
+						duration: 0.75,
 					},
 				}}
 				className={
-					"aspect-video rounded-2xl h-[70vh] w-[60vw]  overflow-hidden relative shadow-2xl  "
+					"aspect-video rounded-2xl lg:h-[70vh] lg:w-[60vw]  overflow-hidden relative shadow-2xl  "
 				}
 			>
 				<img
@@ -117,7 +127,7 @@ const DemoSection = ({
 			</motion.span>
 			<motion.span
 				initial={{
-					y: 200,
+					y: 100,
 					opacity: 0,
 				}}
 				whileInView={{
@@ -133,8 +143,10 @@ const DemoSection = ({
 					`${title === "Countries" ? "text-black" : "text-white"}`
 				}
 			>
-				<motion.h1 className="text-3xl font-bold ">{title}</motion.h1>
-				<motion.p className="w-4/5 text-center font-bold ">{content}</motion.p>
+				<motion.h1 className="text-xl lg:text-2xl font-bold ">
+					{title}
+				</motion.h1>
+				<motion.p className="w-4/5  text-center font-bold ">{content}</motion.p>
 			</motion.span>
 		</motion.span>
 	);
@@ -143,19 +155,61 @@ const index = () => {
 	const demoState = useSelector(selectDemo);
 	const dispatch = useDispatch();
 	const [explore, setExplore] = useState(false);
-	const [demo, setDemo] = useState(false);
-	const [bgColor, setBgColor] = useState("");
-	const router = useRouter();
-	const ref = useRef(null);
 
-	// const { scrollYProgress } = useScroll({
-	// 	container: ref,
-	// });
-	// const scaleX = useSpring(scrollYProgress, {
-	// 	stiffness: 100,
-	// 	damping: 30,
-	// 	restDelta: 0.001,
-	// });
+	const [bgColor, setBgColor] = useState("");
+
+	const ref = useRef(null);
+	const isSmall = useIsSmall();
+	const islarge = useIsLarge();
+
+	const variants = {
+		leaflet:
+			isSmall && !islarge
+				? {
+						animate: {
+							top: explore ? "-10%" : "0%",
+							left: explore ? "-10%" : "-50%",
+						},
+				  }
+				: {
+						initial: { top: "-10%", left: "-10%" },
+						animate: {
+							top: explore ? "5%" : "10%",
+							left: explore ? "-15%" : "-5%",
+						},
+				  },
+		rps:
+			isSmall && !islarge
+				? {
+						initial: { bottom: "-10%", right: "0%" },
+						animate: {
+							bottom: explore ? "-10%" : "0%",
+							right: explore ? "-20%" : "-50%",
+						},
+				  }
+				: {
+						initial: { bottom: "-10%", right: "20%" },
+						animate: {
+							bottom: explore ? "-10%" : "0%",
+							right: explore ? "-15%" : "-10%",
+						},
+				  },
+		countries: {
+			initial: { bottom: "-40%", left: "-40%" },
+			animate: {
+				bottom: explore ? "-10%" : "-5%",
+				left: explore ? "-5%" : "0%",
+			},
+		},
+		formik: {
+			initial: { top: "-20%", right: "-5%" },
+			animate: {
+				top: explore ? "-15%" : "-10%",
+				right: explore ? "-5%" : "0%",
+			},
+		},
+	};
+
 	if (demoState) {
 		return (
 			<motion.div
@@ -168,32 +222,77 @@ const index = () => {
 				}}
 				ref={ref}
 				className={
-					"h-screen w-screen overflow-y-scroll overflow-x-hidden snap-y snap-mandatory " +
+					"h-screen w-screen overflow-y-scroll overflow-x-hidden snap-y snap-mandatory scroll-smooth " +
 					bgColor
 				}
 			>
-				{/* <motion.div
-					className="fixed top-0 left-0 right-0 h-[10px] bg-white origin-[0%]"
-					style={{ scaleX }}
-				></motion.div> */}
-				<h1 className="font-bold text-xl p-2 fixed top-4 left-4">
-					Frontend Mentor Hub by senny.
-				</h1>
+				<span
+					className={`font-bold text-xl p-2 flex justify-between fixed top-4 left-4 right-4 ${
+						bgColor === "bg-gray-200" ? "text-black" : "text-white"
+					}`}
+				>
+					<h1>
+						Frontend Mentor Hub by{" "}
+						<a
+							href="https://senny.netlify.app"
+							className="hover:underline cursor-pointer"
+						>
+							{" "}
+							senny.
+						</a>
+					</h1>
+					<ul className="lg:flex gap-2 hidden">
+						<a href="#leaflet" className="hover:underline">
+							Leaflet
+						</a>
+						<a href="#formik" className="hover:underline">
+							Formik
+						</a>
+						<a href="#rps" className="hover:underline">
+							Rock-Paper-Scissors
+						</a>
+						<a href="#countries" className="hover:underline">
+							Countries
+						</a>
+					</ul>
+				</span>
+				<span
+					className={`font-bold text-sm md:text-md p-2 flex lg:hidden justify-between fixed bottom-4 left-4 ${
+						bgColor === "bg-gray-200" ? "text-black" : "text-white"
+					}`}
+				>
+					<ul className="flex gap-2">
+						<a href="#leaflet" className="hover:underline">
+							Leaflet
+						</a>
+						<a href="#formik" className="hover:underline">
+							Formik
+						</a>
+						<a href="#rps" className="hover:underline">
+							Rock-Paper-Scissors
+						</a>
+						<a href="#countries" className="hover:underline">
+							Countries
+						</a>
+					</ul>
+				</span>
 				<DemoSection
 					route={"/leaflet"}
 					key="leaflet"
 					color="bg-red-600"
 					setBgColor={setBgColor}
+					id={"leaflet"}
 					title="Leaflet"
 					img={Map.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
 				></DemoSection>
 
 				<DemoSection
-					route={"multi-step-form"}
+					route={"multi-step-form/dashboard"}
 					key="formik"
 					color="bg-slate-400"
 					setBgColor={setBgColor}
+					id={"formik"}
 					title="Formik"
 					img={Multi.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
@@ -204,6 +303,7 @@ const index = () => {
 					key="rps"
 					color="bg-blue-900"
 					setBgColor={setBgColor}
+					id="rps"
 					title="Rock Paper Scissors!"
 					img={Rps.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
@@ -212,7 +312,8 @@ const index = () => {
 				<DemoSection
 					route={"rest-countries"}
 					key="countries"
-					color="bg-gray-200	"
+					color="bg-gray-200"
+					id={"countries"}
 					setBgColor={setBgColor}
 					title="Countries"
 					img={Rest.src}
@@ -221,6 +322,7 @@ const index = () => {
 			</motion.div>
 		);
 	}
+
 	return (
 		<AnimatePresence key="home">
 			<motion.div
@@ -232,61 +334,22 @@ const index = () => {
 						ease: "easeInOut",
 					},
 				}}
-				className="relative h-screen w-screen overflow-hidden p-4 cursor-pointer bg-stone-100"
+				className="relative h-screen w-screen overflow-hidden p-4 bg-stone-100"
 			>
 				<h1 className="font-bold text-xl">Frontend Mentor Hub by senny.</h1>
-				{/* <span className="absolute top-[10%] right-[45%]">
-					<Bubble img={ReactImg.src} />
-				</span>
-				<motion.span
-					initial={{
-						top: "8%",
-						right: "47%",
-					}}
-					animate={{
-						top: ["8%", "13%", "8%"],
-						right: ["47%", "44.5%", "47%"],
-					}}
-					transition={{
-						duration: 3,
-						ease: "linear",
-						repeat: Infinity,
-						repeatType: "reverse",
-						repeatDelay: 0,
-					}}
-					className="absolute   bg-blue-300 h-3 w-3 rounded-full"
-				></motion.span>
-				<motion.span
-					initial={{
-						top: "8%",
-						right: "45%",
-					}}
-					animate={{
-						top: "15%",
-						right: "46%",
-					}}
-					transition={{
-						duration: 2,
-						ease: "linear",
-						repeat: Infinity,
-						repeatType: "reverse",
-						repeatDelay: 0,
-					}}
-					className="absolute   bg-blue-300 h-3 w-3 rounded-full"
-				></motion.span> */}
+
 				<AnimatePresence>
-					{!demo && (
+					{!demoState && (
 						<motion.span
 							key="home"
 							exit={{ opacity: 0, transition: { duration: 1 } }}
 						>
 							<BgCard
+								route={"/leaflet"}
 								imgsrc={Map.src}
-								initial={{ top: "-10%", left: "-10%" }}
-								animate={{
-									top: explore ? "-10%" : "10%",
-									left: explore ? "-10%" : "4%",
-								}}
+								initial={"initial"}
+								animate={"animate"}
+								variants={variants.leaflet}
 								transition={{
 									duration: 2,
 									ease: "easeInOut",
@@ -296,11 +359,10 @@ const index = () => {
 
 							<BgCard
 								imgsrc={Multi.src}
-								initial={{ top: "-20%", right: "-5%" }}
-								animate={{
-									top: explore ? "-40%" : "-20%",
-									right: explore ? "-10%" : "0%",
-								}}
+								route={"multi-step-form/dashboard"}
+								initial={"initial"}
+								variants={variants.formik}
+								animate={"animate"}
 								transition={{
 									duration: 2,
 									ease: "easeInOut",
@@ -310,11 +372,10 @@ const index = () => {
 
 							<BgCard
 								imgsrc={Rps.src}
-								initial={{ bottom: "-10%", right: "20%" }}
-								animate={{
-									bottom: explore ? "-10%" : "0%",
-									right: explore ? "-20%" : "-10%",
-								}}
+								route={"rps"}
+								variants={variants.rps}
+								initial={"initial"}
+								animate={"animate"}
 								transition={{
 									duration: 2,
 									ease: "easeInOut",
@@ -323,11 +384,10 @@ const index = () => {
 							/>
 							<BgCard
 								imgsrc={Rest.src}
-								initial={{ bottom: "-40%", left: "-40%" }}
-								animate={{
-									bottom: explore ? "-30%" : "-20%",
-									left: explore ? "-10%" : "0%",
-								}}
+								variants={variants.countries}
+								route={"rest-countries"}
+								initial={"initial"}
+								animate={"animate"}
 								transition={{
 									duration: 1,
 								}}
@@ -359,7 +419,7 @@ const index = () => {
 													duration: 1,
 												},
 											}}
-											className="text-8xl font-bold text-gray-700 cursor-pointer z-20 absolute"
+											className="text-5xl lg:text-8xl font-bold text-gray-700 cursor-pointer z-20 absolute"
 										>
 											Welcome
 										</motion.h1>
@@ -379,7 +439,7 @@ const index = () => {
 													duration: 1,
 												},
 											}}
-											className="text-8xl font-bold text-gray-700 cursor-pointer z-20 absolute"
+											className="text-5xl lg:text-8xl font-bold text-gray-700 cursor-pointer z-20 absolute"
 										>
 											To My
 										</motion.h1>
@@ -399,7 +459,7 @@ const index = () => {
 													duration: 1,
 												},
 											}}
-											className="text-8xl font-bold text-red-500 cursor-pointer z-20 absolute "
+											className="  text-5xl lg:text-8xl font-bold text-red-500 cursor-pointer z-20 absolute "
 										>
 											Frontend Mentor Hub.
 										</motion.h1>
@@ -421,7 +481,7 @@ const index = () => {
 									}}
 									animate={{
 										top: "45%",
-										left: "40%",
+										left: "35%",
 										opacity: 1,
 
 										transition: {
@@ -429,7 +489,7 @@ const index = () => {
 											duration: 1,
 										},
 									}}
-									className="text-8xl font-bold text-green-400 cursor-pointer z-20 absolute "
+									className="text-5xl lg:text-8xl font-bold text-green-400 cursor-pointer z-20 absolute "
 								>
 									Explore!
 								</motion.span>

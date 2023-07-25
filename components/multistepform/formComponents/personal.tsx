@@ -7,8 +7,8 @@ export type formValue = {
 };
 const Personal = ({ formik }: { formik: FormikProps<formValue> }) => {
 	return (
-		<form id="info" className=" flex flex-col  gap-4">
-			<h1 className="text-4xl font-bold">Personal info</h1>
+		<form id="info" className="  flex flex-col  gap-4">
+			<h1 className="text-3xl font-bold">Personal info</h1>
 			<h2 className=" font-medium text-slate-400">
 				Please provide your name, emall address, and phone number.
 			</h2>

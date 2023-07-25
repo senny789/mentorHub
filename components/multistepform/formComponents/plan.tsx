@@ -16,7 +16,7 @@ const Plan: React.FC<PlanProps> = ({ plan, period, setPlan, setPeriod }) => {
 	};
 	return (
 		<div id="plan" className="z-10 flex flex-col   gap-4">
-			<h1 className="text-4xl font-bold">Select your plan</h1>
+			<h1 className="text-3xl font-bold">Select your plan</h1>
 			<h2 className=" font-medium text-slate-400">
 				You have the option of monthly or yearly billing.
 			</h2>
@@ -31,11 +31,11 @@ const Plan: React.FC<PlanProps> = ({ plan, period, setPlan, setPeriod }) => {
 						Arcade
 					</h1>
 					{period === "monthly" ? (
-						<h2>$9/mo</h2>
+						<h2 className="text-slate-400 font-bold">$9/mo</h2>
 					) : (
 						<span>
 							<h2 className="text-slate-400 font-bold">$90/yr</h2>
-							<h3 className="">2 months free</h3>
+							<h3 className=" text-purple-700">2 months free</h3>
 						</span>
 					)}
 				</span>
@@ -53,11 +53,11 @@ const Plan: React.FC<PlanProps> = ({ plan, period, setPlan, setPeriod }) => {
 						Advanced
 					</h1>
 					{period === "monthly" ? (
-						<h2>$12/mo</h2>
+						<h2 className="text-slate-400 font-bold">$12/mo</h2>
 					) : (
 						<span>
 							<h2 className=" font-bold text-slate-400">$120/yr</h2>
-							<h3 className="">2 months free</h3>
+							<h3 className=" text-purple-700">2 months free</h3>
 						</span>
 					)}
 				</span>
@@ -71,11 +71,11 @@ const Plan: React.FC<PlanProps> = ({ plan, period, setPlan, setPeriod }) => {
 						Pro
 					</h1>
 					{period === "monthly" ? (
-						<h2>$15/mo</h2>
+						<h2 className="text-slate-400 font-bold">$15/mo</h2>
 					) : (
 						<span>
 							<h2 className="text-slate-400 font-bold">$150/yr</h2>
-							<h3 className="">2 months free</h3>
+							<h3 className=" text-purple-700">2 months free</h3>
 						</span>
 					)}
 				</span>
@@ -87,18 +87,18 @@ const Plan: React.FC<PlanProps> = ({ plan, period, setPlan, setPeriod }) => {
 					Monthly
 				</h1>
 				<span
-					style={{
-						justifyContent: period === "yearly" ? "flex-end" : "",
-					}}
+					style={{}}
 					onClick={() => setPeriod(period === "yearly" ? "monthly" : "yearly")}
-					className="bg-black min-h-[2rem] aspect-video  rounded-full flex items-center hover:cursor-pointer p-2"
+					className="bg-black min-h-[2rem] aspect-video relative transition-all rounded-full flex items-center hover:cursor-pointer p-2"
 				>
 					<span
 						style={{
 							transitionProperty: "all",
-							transitionDuration: "1",
+							transitionDuration: "0.75s",
 						}}
-						className="bg-white rounded-full h-6 w-6 "
+						className={`bg-white rounded-full h-6 w-6 absolute  ${
+							period === "yearly" ? "right-1" : "right-7"
+						}`}
 					></span>
 				</span>
 				<h1

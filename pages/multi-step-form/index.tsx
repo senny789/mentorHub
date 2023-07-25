@@ -14,9 +14,9 @@ import { FormikProps, useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { addUser } from "@/store/features/msfUserReducer";
-import { randomUUID } from "crypto";
-import Link from "next/link";
 
+import Link from "next/link";
+import { motion } from "framer-motion";
 export type form = "personal" | "plan" | "addon" | "summary" | "end";
 export type plan = "arcade" | "advanced" | "pro";
 export type period = "yearly" | "monthly";
@@ -113,9 +113,8 @@ const MultiStepForm = () => {
 				formik.handleSubmit();
 				if (Object.keys(formik.errors).length > 0) {
 					return;
-				}
-				if (formik.isSubmitting) {
-					setCurrentForm("plan");
+				} else if (!formik.isValidating) {
+					setCurrentForm((curr) => "plan");
 				}
 			} else {
 				setCurrentForm((form) => {
@@ -148,19 +147,32 @@ const MultiStepForm = () => {
 	};
 
 	return (
-		<div className="flex h-screen w-screen justify-center bg-slate-300 items-center">
-			<div className="min-h-[75%] w-[80%] bg-white rounded-md p-10">
-				<div className="flex  gap-10">
-					<div className="flex flex-grow-[0.7] flex-col list-none relative isolate rounded-xl  p-10 gap-8">
-						<BgDesktop className="absolute -z-[1] inset-0" />
+		<div className="flex h-screen w-screen justify-center bg-slate-300 items-center overflow-scroll">
+			<motion.div
+				initial={{
+					x: -100,
+					opacity: 0,
+				}}
+				animate={{
+					x: 0,
+					opacity: 1,
+					transition: {
+						duration: 0.5,
+					},
+				}}
+				className="lg:max-h-[75%] lg:w-[80%] h-full  w-full bg-white rounded-md overflow-hidden"
+			>
+				<div className="flex lg:flex-row flex-col gap-8  p-10 h-full w-full ">
+					<div className="flex   lg:flex-col flex-row list-none relative w-full lg:w-1/3  z-10 p-8 h-full rounded-xl overflow-hidden">
+						<BgDesktop className="absolute   z-0 top-0  left-0 w-full lg:w-3/4 rounded-xl object-cover lg:rotate-0 rotate-180" />
+
 						<FormProgress currentForm={currentForm} />
 					</div>
-					<div className="z-10 flex-auto  p-10">
+					<div className="z-10 h-[80%] flex-grow-0 lg-h-full lg:w-1/2">
 						{formRender()}
 						{currentForm !== "end" && (
 							<>
 								<div
-									id="button"
 									style={{
 										justifyContent:
 											currentForm === "personal" ? "flex-end" : "space-between",
@@ -177,6 +189,7 @@ const MultiStepForm = () => {
 									)}
 									{currentForm !== "summary" && (
 										<button
+											type="button"
 											onClick={() => handleFormChange("next")}
 											className="next bg-black  text-white px-6 py-3 rounded-md"
 										>
@@ -199,7 +212,7 @@ const MultiStepForm = () => {
 						)}
 					</div>
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

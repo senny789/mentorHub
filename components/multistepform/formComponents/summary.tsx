@@ -59,7 +59,7 @@ const Summary: React.FC<SummaryProps> = ({
 	}, []);
 	return (
 		<div id="finishing" className="flex flex-col gap-4">
-			<h1 className="text-4xl font-bold">Finishing up</h1>
+			<h1 className="text-3xl font-bold">Finishing up</h1>
 			<h2 className=" font-medium text-slate-400">
 				Double-check everything looks OK before confirming.
 			</h2>
