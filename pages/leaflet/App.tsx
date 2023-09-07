@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TileLayer, useMap, Marker, Popup } from "react-leaflet";
 
 import InfoCard from "../../components/components/InfoCard";
-
+import Globe from "@/assets/leaflet/globe.jpg";
 import dynamic from "next/dynamic";
 const MapContainer = dynamic(
 	import("../../components/components/MapContainer"),
@@ -73,9 +73,14 @@ function App() {
 	return (
 		<div className="App h-screen w-screen overflow-hidden">
 			<div
-				className="top pt-10 pb-32 w-full relative bg-blue-400"
+				className="top pt-10 pb-32 w-full relative "
 				style={{
-					backgroundColor: "brown",
+					// backgroundColor: "#aaddbb",
+					backgroundImage: `url(${Globe.src})`,
+					backgroundRepeat: "no-repeat",
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+					backgroundBlendMode: "overlay",
 				}}
 			>
 				<div
@@ -86,7 +91,9 @@ function App() {
 				>
 					<div className="absolute text-3xl cursor-default top-1/2">&lt;</div>
 				</div>
-				<h1 className="text-6xl text-white font-bold text-center">Leaflet</h1>
+				<h1 className="text-4xl lg:text-6xl text-green-600 font-bold text-center">
+					Leaflet
+				</h1>
 
 				<form
 					ref={ref}
@@ -121,7 +128,7 @@ function App() {
 											setShowDetails(false);
 										}}
 										key={cit + index}
-										className="p-2 hover:bg-[#a52a2a] hover:text-white cursor-default"
+										className="p-2 hover:bg-green-400 hover:text-white cursor-default"
 									>
 										{cit.name},{cit.country}
 									</li>

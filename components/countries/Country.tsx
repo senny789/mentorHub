@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
+import { ThemeContext } from "@/pages/rest-countries";
 const Country = (props: any) => {
 	const data = props?.data;
-
+	const [theme] = useContext(ThemeContext);
 	return (
 		<motion.div
 			initial={{
@@ -17,7 +18,9 @@ const Country = (props: any) => {
 			onClick={() => {
 				props.setSelectedCountry(data);
 			}}
-			className="flex flex-col hover:opacity-[0.5] cursor-pointer bg-white shadow-[0px_7px_29px_0px_rgba(100,100,111,0.2)] rounded-md"
+			className={`flex flex-col hover:opacity-[0.5] cursor-pointer  shadow-[0px_7px_29px_0px_rgba(100,100,111,0.2)] rounded-md ${
+				theme === "dark" ? "bg-slate-900 " : ""
+			}`}
 		>
 			<img
 				className="aspect-video rounded-md "

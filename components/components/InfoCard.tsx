@@ -25,7 +25,7 @@ const InfoCard = ({ data }: any) => {
 		time();
 	}, [data]);
 	return (
-		<div className="data z-10 p-8 flex rounded-lg absolute md: translate-x-16 bg-white">
+		<div className="data z-10 p-8 w-full min-h-fit flex flex-col sm:flex-row rounded-lg absolute min-w-fit  translate-x-16 bg-white">
 			<div>
 				<h2> Country</h2>
 				<h1>

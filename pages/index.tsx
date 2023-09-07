@@ -7,7 +7,7 @@ import {
 	useSpring,
 } from "framer-motion";
 import ReactImg from "../../assets/react.png";
-import Map from "@/assets/leaflet/MapDemo.png";
+import Map from "@/assets/leaflet/leaflet.jpg";
 import Multi from "@/assets/multi-step-form/multistep.png";
 import Rps from "@/assets/images/rps.png";
 import Rest from "@/assets/rest-countries.png";
@@ -55,7 +55,7 @@ const BgCard = ({
 			transition={transition}
 			onClick={() => router.push(route)}
 			className={
-				"aspect-video rounded-2xl h-[350px] w-[650px] shadow-[0px_1px_20px_0px_gray] overflow-hidden  absolute hover:blur-0 cursor-pointer  blur-[2px]" +
+				"aspect-video rounded-2xl w-[400px] lg:h-[350px] lg:w-[650px] shadow-[0px_1px_20px_0px_gray] overflow-hidden  absolute hover:blur-0 cursor-pointer  blur-[2px]" +
 				style
 			}
 		>
@@ -227,11 +227,11 @@ const index = () => {
 				}
 			>
 				<span
-					className={`font-bold text-xl p-2 flex justify-between fixed top-4 left-4 right-4 ${
+					className={`font-bold z-10 text-xl p-2 flex justify-between fixed top-4 left-4 right-4 ${
 						bgColor === "bg-gray-200" ? "text-black" : "text-white"
 					}`}
 				>
-					<h1>
+					<h1 className="">
 						Frontend Mentor Hub by{" "}
 						<a
 							href="https://senny.netlify.app"
@@ -279,25 +279,23 @@ const index = () => {
 				<DemoSection
 					route={"/leaflet"}
 					key="leaflet"
-					color="bg-red-600"
+					color="bg-blue-500"
 					setBgColor={setBgColor}
 					id={"leaflet"}
 					title="Leaflet"
 					img={Map.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
 				></DemoSection>
-
 				<DemoSection
-					route={"multi-step-form/dashboard"}
-					key="formik"
-					color="bg-slate-400"
+					route={"rest-countries"}
+					key="countries"
+					color="bg-gray-200"
+					id={"countries"}
 					setBgColor={setBgColor}
-					id={"formik"}
-					title="Formik"
-					img={Multi.src}
+					title="Countries"
+					img={Rest.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
 				></DemoSection>
-
 				<DemoSection
 					route={"rps"}
 					key="rps"
@@ -308,15 +306,14 @@ const index = () => {
 					img={Rps.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
 				></DemoSection>
-
 				<DemoSection
-					route={"rest-countries"}
-					key="countries"
-					color="bg-gray-200"
-					id={"countries"}
+					route={"multi-step-form/dashboard"}
+					key="formik"
+					color="bg-slate-400"
 					setBgColor={setBgColor}
-					title="Countries"
-					img={Rest.src}
+					id={"formik"}
+					title="Formik"
+					img={Multi.src}
 					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
 				></DemoSection>
 			</motion.div>

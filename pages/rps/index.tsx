@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Head from "./components/Head";
-import Body from "./components/Body";
+
+import Body from "../../components/rps/Body";
 import { motion } from "framer-motion";
+import Head from "@/components/rps/Head";
 const RockPaperScissors = () => {
 	const [score, setScore] = useState(0);
 	const [playing, setPlaying] = useState(false);
@@ -21,7 +22,7 @@ const RockPaperScissors = () => {
 					}}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 1 }}
-					className="w-1/2 m-auto h-full"
+					className="lg:w-1/2 w-4/5 m-auto h-full"
 				>
 					<Head score={score} />
 					<Body setScore={setScore} />

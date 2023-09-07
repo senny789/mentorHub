@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import image from "../../../assets/images/bg-triangle.svg";
-import rock from "../../../assets/images/icon-rock.svg";
-import paper from "../../../assets/images/icon-paper.svg";
-import scissors from "../../../assets/images/icon-scissors.svg";
+import image from "@/assets/images/bg-triangle.svg";
+import rock from "@/assets/images/icon-rock.svg";
+import paper from "@/assets/images/icon-paper.svg";
+import scissors from "@/assets/images/icon-scissors.svg";
 import { motion } from "framer-motion";
 type Signs = "rock" | "paper" | "scissors" | "";
 const Sign = ({ type }: { type: string }) => {
@@ -22,7 +22,7 @@ const Sign = ({ type }: { type: string }) => {
 		type === "rock" ? rock : type === "paper" ? paper : scissors;
 	return (
 		<div
-			className={`${bgColorDark} rounded-[100%] aspect-square w-[200px] relative overflow-hidden cursor-pointer hover:opacity-[0.5]`}
+			className={`${bgColorDark} rounded-[100%] aspect-square lg:w-[200px] w-[100px] relative overflow-hidden cursor-pointer hover:opacity-[0.5]`}
 		>
 			<div
 				className={`${bgColorLight} rounded-[100%] aspect-square w-[100%]  absolute -top-2  flex justify-center items-center`}
@@ -32,8 +32,7 @@ const Sign = ({ type }: { type: string }) => {
 						<img
 							src={imageType.src}
 							alt="sign"
-							width={"100px"}
-							className="aspect-square m-auto"
+							className="aspect-square m-auto lg:w-[100px] w-[50px]"
 						></img>
 					</div>
 				</div>
@@ -53,7 +52,7 @@ const SelectionScreen = ({
 			}}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.5 }}
-			className="relative w-full h-[80%] z-1 grid grid-cols-3"
+			className="relative w-full h-[40%] lg:h-[80%] z-1 grid grid-cols-3"
 			style={{
 				backgroundImage: `url(${image.src})`,
 				backgroundSize: "contain",
@@ -62,14 +61,17 @@ const SelectionScreen = ({
 			}}
 		>
 			<span className="relative">
-				<span className="absolute -top-2" onClick={() => setSelected("rock")}>
+				<span
+					className="absolute -top-4 -left-10 lg:left-0 lg:-top-2"
+					onClick={() => setSelected("rock")}
+				>
 					<Sign type="rock" />
 				</span>
 			</span>
 			<span></span>
 			<span className="relative">
 				<span
-					className="absolute -top-2 right-0"
+					className="absolute -top-2 -right-10 lg:right-0 "
 					onClick={() => setSelected("paper")}
 				>
 					<Sign type="paper" />
@@ -79,7 +81,7 @@ const SelectionScreen = ({
 			<span className="relative">
 				<span
 					className="absolute 
-          left-8
+          lg:left-8 -left-8
           bottom-0"
 					onClick={() => setSelected("scissors")}
 				>
@@ -112,15 +114,17 @@ const PlayingScreen = ({
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.2 }}
 		>
-			<div className="flex gap-15 m-auto z-1">
+			<div className="flex gap-15  m-auto z-1">
 				<section className="flex flex-col gap-10 items-center">
-					<h1 className="text-3xl text-white font-bold">You Picked</h1>
+					<h1 className="text-2xl text-white font-bold">You Picked</h1>
 					<Sign type={selected} />
 				</section>
 				<section className="flex flex-col gap-10 justify-center items-center p-5">
-					<h1 className="text-4xl text-white font-bold">You {status}</h1>
+					<h1 className="text-xl lg:text-3xl text-white font-bold">
+						You {status}
+					</h1>
 					<button
-						className={`bg-slate-200 rounded-xl text-xl py-2 px-16  font-bold ${
+						className={`bg-slate-200 rounded-xl text-xl py-2 px-6 lg:px-16 font-bold ${
 							status === "Won" ? "text-green-400" : "text-red-400"
 						}`}
 						onClick={() => setSelected("")}
@@ -129,7 +133,7 @@ const PlayingScreen = ({
 					</button>
 				</section>
 				<section className="flex flex-col gap-10 items-center">
-					<h1 className="text-3xl text-white font-bold">Senny Picked</h1>
+					<h1 className="text-2xl text-white font-bold">Senny Picked</h1>
 					<Sign type={sennySign} />
 				</section>
 			</div>

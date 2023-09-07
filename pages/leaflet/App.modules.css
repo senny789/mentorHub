@@ -1,12 +1,7 @@
 .data > *:not(:last-child) {
   border-right: 1px solid gray;
 }
-.data {
-  width: 90vw;
-  flex-wrap: wrap;
-  right: 2%;
-  left: 2%;
-}
+
 .data > * {
   padding-inline: 1rem;
   font-weight: bold;
@@ -33,7 +28,7 @@
   .data {
     bottom: -30%;
     left: -2%;
-    padding: 2rem;
+    /* padding: 2rem; */
   }
   .data > * h1 {
     font-size: 1rem;
@@ -42,22 +37,12 @@
 }
 @media (orientation: portrait) {
   /* … */
-  .data {
-    width: 80%;
-    flex-direction: column;
-    top: 60%;
-    left: 5%;
-  }
   .data > *:not(:last-child) {
     border-right: none;
   }
 }
 @media (max-width: 40rem) and (orientation: portrait) {
-  .data {
-    bottom: -30%;
-    left: -5%;
-    padding: 2rem;
-  }
+ 
   .data > * h1 {
     font-size: 1rem;
     font-weight: bolder;
