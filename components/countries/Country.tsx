@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { ThemeContext } from "@/pages/rest-countries";
-import Image from "next/image";
+
 const Country = (props: any) => {
 	const data = props?.data;
 	const [theme] = useContext(ThemeContext);
@@ -23,11 +23,11 @@ const Country = (props: any) => {
 				theme === "dark" ? "bg-slate-900 " : ""
 			}`}
 		>
-			<Image
+			<img
 				className="aspect-video rounded-md "
 				src={data?.flags?.png}
 				alt={data?.flags?.alt}
-			></Image>
+			></img>
 			<div className="px-5 py-8">
 				<h1 className="font-bold text-xl">{data?.name.common}</h1>
 				<span className="flex py-2">

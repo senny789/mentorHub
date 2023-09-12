@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 const InfoCard = ({ data }: any) => {
 	const timezoneOffset = data?.timezone / (60 * 60);
@@ -45,10 +44,10 @@ const InfoCard = ({ data }: any) => {
 				>
 					Weather/Temp <span>{celcius ? "C" : "K"} &deg;</span>
 				</h2>
-				<Image
+				<img
 					src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}.png`}
 					alt="weather icon"
-				></Image>{" "}
+				></img>{" "}
 				<h1>{data?.weather[0].main}</h1>
 				<h1>
 					{celcius
