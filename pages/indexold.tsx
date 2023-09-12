@@ -25,11 +25,11 @@ const ProjectSection = ({ color, route, img, imgAlt, title }: any) => {
 					className=" w-1/2  flex flex-col gap-10 cursor-pointer"
 					onClick={() => router.push(route)}
 				>
-					<img
+					<Image
 						src={img}
 						alt={imgAlt}
 						className="aspect-video rounded-xl w-full shadow-[1px_1px_20px_4px_black] hover:scale-[110%] transition-all  hover:opacity-90 "
-					></img>
+					></Image>
 					<h1 className="text-2xl font-bold text-center">{title}</h1>
 				</div>
 			</div>

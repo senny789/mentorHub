@@ -111,9 +111,12 @@ const MultiStepForm = () => {
 		if (type === "next") {
 			if (currentForm === "personal") {
 				formik.handleSubmit();
+
 				if (Object.keys(formik.errors).length > 0) {
 					return;
-				} else if (!formik.isValidating) {
+				} else if (!(Object.keys(formik.touched).length > 0)) {
+					return;
+				} else {
 					setCurrentForm((curr) => "plan");
 				}
 			} else {
@@ -160,57 +163,55 @@ const MultiStepForm = () => {
 						duration: 0.5,
 					},
 				}}
-				className="lg:max-h-[75%] lg:w-[80%] h-full  w-full bg-white rounded-md overflow-hidden"
+				className="  md:h-[max('fit-content',80%)] md:w-[70%]  flex p-8 gap-8 flex-col md:flex-row w-full bg-white rounded-md "
 			>
-				<div className="flex lg:flex-row flex-col gap-8  p-10 h-full w-full ">
-					<div className="flex   lg:flex-col flex-row list-none relative w-full lg:w-1/3  z-10 p-8 h-full rounded-xl overflow-hidden">
-						<BgDesktop className="absolute   z-0 top-0  left-0 w-full lg:w-3/4 rounded-xl object-cover lg:rotate-0 rotate-180" />
+				<div className=" relative w-full lg:w-1/3  flex-shrink-0 basis-[25%]   rounded-xl">
+					<BgDesktop className="absolute top-0 left-0 -z-0 h-full w-full rounded-xl object-cover lg:rotate-0 rotate-180" />
 
-						<FormProgress currentForm={currentForm} />
-					</div>
-					<div className="z-10 h-[80%] flex-grow-0 lg-h-full lg:w-1/2">
-						{formRender()}
-						{currentForm !== "end" && (
-							<>
-								<div
-									style={{
-										justifyContent:
-											currentForm === "personal" ? "flex-end" : "space-between",
-									}}
-									className="flex   w-full mt-16"
-								>
-									{currentForm !== "personal" && (
-										<button
-											onClick={() => handleFormChange("prev")}
-											className="back text-gray-400 px-6 py-3 rounded-md"
-										>
-											Go back
-										</button>
-									)}
-									{currentForm !== "summary" && (
-										<button
-											type="button"
-											onClick={() => handleFormChange("next")}
-											className="next bg-black  text-white px-6 py-3 rounded-md"
-										>
-											Next Step
-										</button>
-									)}
-									{currentForm === "summary" && (
-										<button
-											onClick={() => {
-												dispatch(addUser(userData));
-												setCurrentForm("end");
-											}}
-											className="next bg-[hsl(243,100%,62%)] text-white px-6 py-3 rounded-md"
-										>
-											Confirm
-										</button>
-									)}
-								</div>
-							</>
-						)}
-					</div>
+					<FormProgress currentForm={currentForm} />
+				</div>
+				<div className="z-10 w-full">
+					{formRender()}
+					{currentForm !== "end" && (
+						<>
+							<div
+								style={{
+									justifyContent:
+										currentForm === "personal" ? "flex-end" : "space-between",
+								}}
+								className="flex   w-full mt-16"
+							>
+								{currentForm !== "personal" && (
+									<button
+										onClick={() => handleFormChange("prev")}
+										className="back text-gray-400 px-6 py-3 rounded-md"
+									>
+										Go back
+									</button>
+								)}
+								{currentForm !== "summary" && (
+									<button
+										type="button"
+										onClick={() => handleFormChange("next")}
+										className="next bg-black  text-white px-6 py-3 rounded-md"
+									>
+										Next Step
+									</button>
+								)}
+								{currentForm === "summary" && (
+									<button
+										onClick={() => {
+											dispatch(addUser(userData));
+											setCurrentForm("end");
+										}}
+										className="next bg-[hsl(243,100%,62%)] text-white px-6 py-3 rounded-md"
+									>
+										Confirm
+									</button>
+								)}
+							</div>
+						</>
+					)}
 				</div>
 			</motion.div>
 		</div>

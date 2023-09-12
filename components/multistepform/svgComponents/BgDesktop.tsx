@@ -1,18 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const BgDesktop = ({ className }: { className: string }) => {
 	const svgRef = useRef<SVGSVGElement>(null);
-	const rect = svgRef.current?.getBoundingClientRect();
+	const [rect, setRect] = useState<DOMRect | undefined>();
+
+	useEffect(() => {
+		const screenResize = () => {
+			if (svgRef.current) {
+				const boundingClient = svgRef.current?.getBoundingClientRect();
+
+				setRect(boundingClient);
+			}
+		};
+		screenResize();
+		window.addEventListener("resize", screenResize);
+		return () => window.removeEventListener("resize", screenResize);
+	}, [svgRef.current]);
+
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
 			ref={svgRef}
 			preserveAspectRatio="none"
-			viewBox="0 0 274 568"
+			// viewBox="0 0 274 568"
 			className={className}
 		>
-			<rect width={rect?.width} height={rect?.height} fill="#483EFF" rx="10" />
+			<rect width={rect?.width} height={rect?.height} fill="#483EFF" />
 			<mask
 				id="a"
 				width={rect?.width}
@@ -22,7 +35,7 @@ const BgDesktop = ({ className }: { className: string }) => {
 				maskUnits="userSpaceOnUse"
 				style={{ maskType: "alpha" }}
 			>
-				<rect width={rect?.width} height={rect?.height} fill="#fff" rx="10" />
+				<rect width={rect?.width} height={rect?.height} fill="#fff" />
 			</mask>
 			<g mask="url(#a)">
 				<path

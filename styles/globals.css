@@ -41,7 +41,19 @@ body {
 
   color:white;
 }
+*::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
 
+}
+*::-webkit-scrollbar-thumb{
+border-radius: 10px;
+background-color: gray;
+}
+*::-webkit-scrollbar-track{
+  background-color: rgb(224, 223, 221);
+
+}
 .title{
 color:#ffffffec;
   top: 2%;

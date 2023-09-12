@@ -1,11 +1,12 @@
 import { selectUser, userState } from "@/store/features/msfUserReducer";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-
+import { removeUser } from "@/store/features/msfUserReducer";
 const index = () => {
 	const userData = useSelector(selectUser);
+	const dispatch = useDispatch();
 
 	const userRow = userData.map((user: userState, index: number) => {
 		return (
@@ -22,6 +23,14 @@ const index = () => {
 					{user.addons?.customize ? "active" : "inactive"}
 				</td>
 				<td className="p-4">{user.totalCharge}</td>
+				<td className="p-4">
+					<button
+						className="p-2 px-4 bg-red-500 text-white rounded-xl"
+						onClick={() => dispatch(removeUser({ id: user.id }))}
+					>
+						x
+					</button>
+				</td>
 			</tr>
 		);
 	});
@@ -51,8 +60,8 @@ const index = () => {
 				}}
 				className="w-full lg:w-4/5 m-auto flex flex-col gap-8"
 			>
-				<section className="text-center flex justify-between  w-full items-center">
-					<h1 className="text-3xl font-bold">User Subscriptions</h1>
+				<section className="text-center flex flex-wrap justify-between  w-full items-center">
+					<h1 className="text-xl lg:text-3xl font-bold">User Subscriptions</h1>
 					<Link
 						href="/multi-step-form"
 						className="bg-white text-black font-bold rounded-xl p-2 items-center hover:shadow-[0_0_5px_0_white]"
@@ -60,10 +69,10 @@ const index = () => {
 						Add Subscription
 					</Link>
 				</section>
-				<section className="w-full text-xl">
-					<div className="multi-step-form border   overflow-x-scroll rounded-xl p-4 bg-white text-black shadow-[0_0_5px_0_white]">
+				<section className="w-full text-sm md:text-lg lg:text-xl">
+					<div className="multi-step-form border   overflow-x-scroll rounded-md p-4 bg-white text-black ">
 						<table className="w-full">
-							<thead className=" capitalize">
+							<thead className="capitalize">
 								<tr className="">
 									<th>#</th>
 									<th colSpan={3}>Personal Info</th>
@@ -72,6 +81,7 @@ const index = () => {
 									<th>
 										total <br></br> charge
 									</th>
+									<th></th>
 								</tr>
 								<tr>
 									<th></th>
@@ -93,9 +103,7 @@ const index = () => {
 									<tr>
 										<th colSpan={9} className="p-4">
 											<span className="flex flex-col gap-4 justify-center w-full">
-												<h1 className="text-2xl">
-													No user subscription found.
-												</h1>
+												<h1 className="text-xl">No user subscription found.</h1>
 												<Link
 													href="/multi-step-form"
 													className="w-fit self-center bg-slate-800 rounded-md hover:shadow-[0_0_10px_0_rgb(30_41_59)] text-white p-2 shadow-md"

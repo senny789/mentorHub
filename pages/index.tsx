@@ -1,156 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-	AnimatePresence,
-	motion,
-	useInView,
-	useScroll,
-	useSpring,
-} from "framer-motion";
-import ReactImg from "../../assets/react.png";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+
 import Map from "@/assets/leaflet/leaflet.jpg";
 import Multi from "@/assets/multi-step-form/multistep.png";
 import Rps from "@/assets/images/rps.png";
 import Rest from "@/assets/rest-countries.png";
 import { useRouter } from "next/router";
-import { AiOutlineArrowUp } from "react-icons/ai";
+
 import { selectDemo, toggleDemoPage } from "@/store/features/homeReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsLarge, useIsSmall } from "@/hooks/useMatchMedia";
-const Bubble = ({ img }: any) => {
-	return (
-		<motion.div
-			className="rounded-full border border-blue-100  h-10 w-10"
-			animate={{
-				rotateZ: 360,
-			}}
-			transition={{
-				duration: 3,
-				ease: "linear",
-				repeat: Infinity,
-				repeatType: "loop",
-				repeatDelay: 0,
-			}}
-			style={{
-				backgroundImage: `url(${img})`,
-				backgroundSize: "cover",
-			}}
-		></motion.div>
-	);
-};
-const BgCard = ({
-	imgsrc,
-	style,
-	initial,
-	animate,
-	transition,
-	variants,
-	route,
-}: any) => {
-	const router = useRouter();
-	return (
-		<motion.span
-			initial={initial}
-			animate={animate}
-			variants={variants}
-			transition={transition}
-			onClick={() => router.push(route)}
-			className={
-				"aspect-video rounded-2xl w-[400px] lg:h-[350px] lg:w-[650px] shadow-[0px_1px_20px_0px_gray] overflow-hidden  absolute hover:blur-0 cursor-pointer  blur-[2px]" +
-				style
-			}
-		>
-			<motion.div
-				initial={{
-					opacity: 1,
-				}}
-				animate={{
-					opacity: 0,
-				}}
-				transition={{
-					delay: 1,
-					duration: 3,
-					ease: "linear",
-				}}
-				className="bg-slate-200 z-10 rounded-2xl absolute -inset-1 hover:opacity-0   "
-				style={{
-					transition: "0.75s all ",
-					transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-				}}
-			></motion.div>
-			<img src={imgsrc} alt={"photo"} className=" h-full w-full "></img>
-		</motion.span>
-	);
-};
-const DemoSection = ({
-	title,
-	content,
-	img,
-	color,
-	id,
-	setBgColor,
-	route,
-}: any) => {
-	const ref = useRef(null);
-	const inView = useInView(ref);
-	const router = useRouter();
-	useEffect(() => {
-		if (inView) {
-			setBgColor((col: any) => color);
-		}
-	}, [inView]);
-	return (
-		<motion.span
-			ref={ref}
-			id={id}
-			className="flex flex-col lg:flex-row h-screen w-screen snap-center mt-10 p-10 gap-10 justify-center items-center cursor-pointer "
-			onClick={() => router.push(route)}
-		>
-			<motion.span
-				initial={{
-					x: -200,
-				}}
-				whileInView={{
-					x: 0,
-					transition: {
-						duration: 0.75,
-					},
-				}}
-				className={
-					"aspect-video rounded-2xl lg:h-[70vh] lg:w-[60vw]  overflow-hidden relative shadow-2xl  "
-				}
-			>
-				<img
-					src={img}
-					alt={"photo"}
-					className=" h-full w-full shadow-sm "
-				></img>
-			</motion.span>
-			<motion.span
-				initial={{
-					y: 100,
-					opacity: 0,
-				}}
-				whileInView={{
-					y: 0,
-					opacity: 1,
-					transition: {
-						delay: 0.5,
-						duration: 1,
-					},
-				}}
-				className={
-					"flex justify-center flex-col items-center grow-0 " +
-					`${title === "Countries" ? "text-black" : "text-white"}`
-				}
-			>
-				<motion.h1 className="text-xl lg:text-2xl font-bold ">
-					{title}
-				</motion.h1>
-				<motion.p className="w-4/5  text-center font-bold ">{content}</motion.p>
-			</motion.span>
-		</motion.span>
-	);
-};
+import DemoSection from "@/components/newhome/DemoSection";
+import BgCard from "@/components/newhome/BgCard";
+
 const index = () => {
 	const demoState = useSelector(selectDemo);
 	const dispatch = useDispatch();

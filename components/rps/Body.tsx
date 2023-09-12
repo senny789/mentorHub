@@ -4,6 +4,7 @@ import rock from "@/assets/images/icon-rock.svg";
 import paper from "@/assets/images/icon-paper.svg";
 import scissors from "@/assets/images/icon-scissors.svg";
 import { motion } from "framer-motion";
+import Image from "next/image";
 type Signs = "rock" | "paper" | "scissors" | "";
 const Sign = ({ type }: { type: string }) => {
 	const bgColorLight =
@@ -29,11 +30,11 @@ const Sign = ({ type }: { type: string }) => {
 			>
 				<div className="bg-gray-600 w-[80%] rounded-[100%] absolute flex justify-center items-center aspect-square pt-4 overflow-hidden">
 					<div className="w-[100%] rounded-full aspect-square bg-white text-black   flex justify-center items-center">
-						<img
+						<Image
 							src={imageType.src}
 							alt="sign"
 							className="aspect-square m-auto lg:w-[100px] w-[50px]"
-						></img>
+						></Image>
 					</div>
 				</div>
 			</div>

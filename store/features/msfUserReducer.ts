@@ -1,5 +1,5 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
-import { randomUUID } from 'crypto'
+
 export type userState={
     id:number,
 personalInfo:{
@@ -28,7 +28,8 @@ export const msfUserSlice=createSlice({
             state.users.push({id:nanoid(),...action.payload})
         },
         removeUser:(state,action)=>{
-            state.users=state.users.filter(user=>user.id!==action.payload.id)
+           
+          state.users=state.users.filter(user=>user.id!==action.payload.id)
         },
         editUser:(state,action)=>{
             state.users=state.users.map(user=>{
