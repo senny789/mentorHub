@@ -39,7 +39,8 @@ function App() {
 					}
 				)
 					.then((res) => res.json())
-					.then((dat) => setCity(dat));
+					.then((dat) => setCity(dat))
+					.catch((err) => {});
 			}, 500);
 
 			return () => clearTimeout(timeout);
@@ -54,7 +55,8 @@ function App() {
 			.then((res) => res.json())
 			.then((dat) => {
 				setCityDetails(dat);
-			});
+			})
+			.catch((err) => {});
 	}, [data]);
 
 	//input ref handler

@@ -156,7 +156,7 @@ const index = () => {
 					setBgColor={setBgColor}
 					title="Countries"
 					img={Rest.src}
-					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
+					content="This is a section where i implemented infinite scrolling ,theme change,filter and Countries api to display the countries of the world"
 				></DemoSection>
 				<DemoSection
 					route={"rps"}
@@ -166,7 +166,7 @@ const index = () => {
 					id="rps"
 					title="Rock Paper Scissors!"
 					img={Rps.src}
-					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
+					content="This is a section where i made a simple rock paper scissors game."
 				></DemoSection>
 				<DemoSection
 					route={"multi-step-form/dashboard"}
@@ -176,7 +176,7 @@ const index = () => {
 					id={"formik"}
 					title="Formik"
 					img={Multi.src}
-					content="This is a section where i implemented leaflet and weather api to find the weather and map details of specific places when searched"
+					content="This is a section where i implemented redux ,formik and yup  to add users with the details in the form provided by the frontend mentor hub challenge."
 				></DemoSection>
 			</motion.div>
 		);
